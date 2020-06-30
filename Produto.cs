@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Aula27_28_29_30
@@ -24,26 +26,60 @@ namespace Aula27_28_29_30
             }
 
         }
+        /// <summary>
+        /// Lê o csv
+        /// </summary>
+        /// <returns>Lista de produtos</returns>
+        public List<Produto> Ler(){
+            //Criando uma lista de produtos
+            List<Produto> produtos = new List<Produto>();
 
-        
-        
-    
-        public void Cadastrar(Produto p){
-            /// <summary>
-            /// Método
-            /// </summary>
-            /// <returns>Acrescenta linhas em um arquivo</returns>
-            
-            var linha = new string[] { p.PrepararLinha(p) };
-            File.AppendAllLines(PATH, linha);
+            //Transformando as linhas disponiveis em uma array de strings
+            string[] linhas = File.ReadAllLines(PATH);
+
+            foreach(var linha in linhas){
+
+                //Separando os dados em cada linha com o Split
+                string[] dados = linha.Split(";");
+
+                Produto p = new Produto();
+                p.Codigo = Int32.Parse( Separar(dados[0]) );
+                p.Nome = (Separar(dados[1]));
+                p.Preco = float.Parse(Separar(dados[2]));
+
+                produtos.Add(p);
+
+            }
+
+            return produtos;
 
         }
 
+        /// <summary>
+        /// Adiciona itens ao csv
+        /// </summary>
+        /// <param name="p">Coloca o codigo, nome e preço no csv</param>
+        public void Cadastrar(Produto p){
+            var linha = new string[] { p.PrepararLinha(p) };
+            File.AppendAllLines(PATH, linha);
+        }
+        
+        /// <summary>
+        /// Separa a lista do csv para aparecer no console
+        /// </summary>
+        /// <param name="_coluna">Deixa só o valor depois do =</param>
+        /// <returns>Serapação</returns>
+        private string Separar(string _coluna){
+            return _coluna.Split("=")[1];
+        }
+
+        /// <summary>
+        /// Escreve no csv
+        /// </summary>
+        /// <param name="produto">nome do produto, codigo do produto e preço do produto</param>
+        /// <returns>Linha com dados</returns>
         private string PrepararLinha(Produto produto){
-            /// <summary>
-            /// Método
-            /// </summary>
-            /// <value>Escreve no arquivo</value>
+            
             return $"codigo={produto.Codigo};nome={produto.Nome};preco={produto.Preco}";
 
         }
