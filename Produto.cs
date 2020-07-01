@@ -56,7 +56,10 @@ namespace Aula27_28_29_30
             return produtos;
 
         }
-
+        /// <summary>
+        /// Remove uma ou mais linhas que tenham o termo
+        /// </summary>
+        /// <param name="_termo">termo para ser buscado</param>
         public void Remover (string _termo){
             //Criando uma lista para servir como um backup para as linhas do csv
             List<string> linhas = new List<string>();
@@ -83,7 +86,11 @@ namespace Aula27_28_29_30
             }
 
         }
-
+        /// <summary>
+        /// Filtra as linhas do csv em ordem alfabética
+        /// </summary>
+        /// <param name="_nome">nomes a serem filtrados</param>
+        /// <returns>Linha filtrada</returns>
         public List<Produto> Filtrar(string _nome){
             return Ler().FindAll(x => x.Nome == _nome);
         }
