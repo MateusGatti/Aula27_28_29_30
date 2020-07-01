@@ -55,6 +55,10 @@ namespace Aula27_28_29_30
 
         }
 
+        public List<Produto> Filtrar(string _nome){
+            return Ler().FindAll(x => x.Nome == _nome);
+        }
+
         /// <summary>
         /// Adiciona itens ao csv
         /// </summary>
