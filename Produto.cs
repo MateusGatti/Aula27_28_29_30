@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Aula27_28_29_30
 {
@@ -51,7 +52,35 @@ namespace Aula27_28_29_30
 
             }
 
+            produtos = produtos.OrderBy(y => y.Nome).ToList();
             return produtos;
+
+        }
+
+        public void Remover (string _termo){
+            //Criando uma lista para servir como um backup para as linhas do csv
+            List<string> linhas = new List<string>();
+            //Usando a biblioteca StreamReader para ler nosso csv
+            using(StreamReader arquivo = new StreamReader(PATH)){
+
+                string linha;
+                while ((linha = arquivo.ReadLine()) != null ){
+
+                    linhas.Add(linha);
+                
+                }
+
+            }
+            //Removemos as linhas que tiverem o termo passado como argumento, irá ser passado pelo program
+            linhas.RemoveAll(l => l.Contains(_termo));
+            // Reescrevemos o csv do zero
+            using(StreamWriter output = new StreamWriter(PATH)){
+
+                foreach(string ln in linhas){
+                    output.Write(ln + "\n");
+                }
+
+            }
 
         }
 
