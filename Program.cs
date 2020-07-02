@@ -12,17 +12,22 @@ namespace Aula27_28_29_30
             p.Nome = "xboxone";
             p.Preco = 8000f;
 
-            p.Cadastrar(p);
-            p.Remover("xboxone");
+            //p.Cadastrar(p);
+            //p.Remover("ps4");
 
-            List<Produto> lista = new List<Produto>();
-            lista = p.Ler();
-            
+            Produto alterado = new Produto();
+            alterado.Codigo = 3;
+            alterado.Nome = "polystation";
+            alterado.Preco = 300f;
 
-            foreach(Produto item in lista){
-                System.Console.WriteLine($"R$ {item.Preco} - {item.Nome}");
+            p.Alterar(alterado);
+
+            List<Produto> lista = p.Ler();
+
+            foreach(Produto item in lista)
+            {
+                Console.WriteLine($"R$ {item.Preco} - {item.Nome}");
             }
-
 
         }
     }
